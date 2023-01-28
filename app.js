@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
     const response = await getApod();
     const { data } = response;
     console.log(data);
-    res.render('apod', data);
+    res.render('index', data);
 })
 
 app.listen(3000, () => {
