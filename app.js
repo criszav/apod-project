@@ -12,13 +12,18 @@ const { getApod } = require('./services');
 app.set('view engine', 'ejs'); // Setting 'EJS' as the 'view engine'
 
 app.get('/', async (req, res) => {
-    const response = await getApod();
-    const data = response.data;
-    if(!data.copyright) { // Agrega el valor unknown a copyright en caso de no estar, api no siempre entrega ese valor
-        data.copyright = 'Unknown';
+    try {
+        const response = await getApod();
+        const data = response.data;
+        if (!data.copyright) { // Agrega el valor unknown a copyright en caso de no estar, api no siempre entrega ese valor
+            data.copyright = 'Unknown';
+        }
+        console.log(data);
+        res.render('index', data);
+    } catch (error) {
+        throw { status: error?.status || 500, message: error?.message || error };
     }
-    console.log(data);
-    res.render('index', data);
+
 })
 
 const port = process.env.PORT || 3000;

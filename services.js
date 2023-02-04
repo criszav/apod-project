@@ -5,7 +5,8 @@ module.exports.getApod = async () => {
         const api_key = process.env.API_KEY;
         const response = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${api_key}`);
         return response;
-    } catch(e) {
+    } catch (e) {
         console.log(e);
+        throw error;
     }
 }
